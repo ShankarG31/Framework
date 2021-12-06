@@ -25,5 +25,11 @@ public class LoginPage extends Base{
 	{
 		return driver.getTitle();
 	}
-	
+	public DashBoardPage validateLogin(String userName,String Password)
+	{
+		username.sendKeys(userName);
+		password.sendKeys(Password);
+		loginButton.click();
+		return new DashBoardPage();
+	}
 }
