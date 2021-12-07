@@ -10,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Base {
@@ -17,6 +20,10 @@ public class Base {
 	public static WebDriver driver;
 	public static Properties prop;
 	public static Logger logger;
+	public static ExtentReports extent;
+	public static ExtentSparkReporter reporter;
+	public static String reportPath;
+	
 	public Base()
 	{
 		try {
@@ -56,6 +63,24 @@ public class Base {
 	{
 		driver.quit();
 		logger.info("Browser closed successfully");
+	}
+	
+	public void extentReportSetup()
+	{
+		reportPath=System.getProperty("user.dir")+"/ExtentReport/index.html";
+		reporter=new ExtentSparkReporter(reportPath);
+		reporter.config().setDocumentTitle("TDD Framework Automation");
+		reporter.config().setReportName("OrangeHRM Automation");
+		extent=new ExtentReports();
+		extent.attachReporter(reporter);
+		extent.setSystemInfo("tester ","Gowri Shankar");
+		extent.setSystemInfo("tester ","Gowri Shankar");
+		extent.setSystemInfo("tester ","Gowri Shankar");
+	}
+	
+	public void closeExtentReportSetup()
+	{
+		extent.flush();
 	}
 	/*
 	 * Log4j logging levels :
